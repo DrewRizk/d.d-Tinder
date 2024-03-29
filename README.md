@@ -1,5 +1,5 @@
 
-# Assignment 4 - Camera App
+# Final Project
 
 * Author: Drew Rizk
 * Class: CS402
