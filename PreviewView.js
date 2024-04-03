@@ -1,38 +1,53 @@
 import {useState} from 'react';
 import { Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 // Initial view that will allow for browsing through the gallery
 const PreviewView = (props) => {
-
   const styles = StyleSheet.create({
-    photo: {
+    photoContainer: {
       flex: 1,
       height: 50,
-      width: '100%',
-      justifyContent: 'center',
-      alignItems: 'center',
+      maxWidth: '100%', 
+      overflow: 'hidden', 
+      borderWidth: 2,
+      marginTop: 25,
+      marginRight: 20,
+      borderRadius: 15, 
+    },
+    photo: {
+      flex: 1, 
+      resizeMode: 'cover', 
     },
     preview: {
       flex: 6,
       height: 300,
       width: '100%',
       padding: 2,
-      borderWidth: 5,
+      borderRadius: 15,
+      margin: 10,
     },
     buttonContainer: {
       flexDirection: 'row',
       alignItems: 'center',
       padding: 20,
-      marginTop: 20,
-      justifyContent: 'top',
-      margin: 'auto',
+      marginTop: 10,
+      justifyContent: 'center', 
     },
     button: {
-      margin: 10,
-      paddingVertical: 15, 
-      paddingHorizontal: 20, 
-      borderRadius: 10, 
-      backgroundColor: 'blue', 
+      margin: 10, 
+      padding: 15, 
+      borderRadius: 100, 
+      backgroundColor: 'blue',
+      justifyContent: 'center', 
+      alignItems: 'center', 
+    },
+    dislikeButton: {
+      backgroundColor: 'red', 
+    },
+    likeButton: {
+      backgroundColor: 'green',
     },
   });
 
@@ -78,18 +93,21 @@ if (listLength !== props.photolist.length) {
   setCurrentSnap(0);
 }
 
-var previewView= <View style={styles.preview} >
-        <Image style={styles.photo} source={asource}/>
-        <View style={styles.buttonContainer} >
-        <TouchableOpacity style={styles.button} onPress={() => prev()}>
-          <Text style={{ color: 'white' }}>Prev</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => next()}>
-          <Text style={{ color: 'white' }}>Next</Text>
-        </TouchableOpacity>
-        </View>
-        <Text> Image {currentSnap+1}/{props.photolist.length}</Text>
-        </View>
+var previewView= 
+                <View style={styles.preview}>
+                  <View style={styles.photoContainer}>
+                    <Image style={styles.photo} source={asource}/>
+                  </View>
+                  <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={[styles.button, styles.dislikeButton]} onPress={() => prev()}>
+                      <Icon name="thumbs-down" size={30} color="white" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.button, styles.likeButton]} onPress={() => next()}>
+                      <Icon name="thumbs-up" size={30} color="white" />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
    return (previewView);
 };
 
