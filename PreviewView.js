@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import { Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 
 // Initial view that will allow for browsing through the gallery
 const PreviewView = (props) => {
@@ -19,6 +19,8 @@ const PreviewView = (props) => {
     photo: {
       flex: 1, 
       resizeMode: 'cover', 
+      width: '100%',
+      height: '100%'
     },
     preview: {
       flex: 6,
@@ -55,7 +57,6 @@ const PreviewView = (props) => {
   const [currentSnap, setCurrentSnap] = useState(0);
   const [listLength, setListLength] = useState(0);
 
-
   // Similar to class resources example, just decrements current photo index (if possible)
   function prev() {
     if (currentSnap == 0)
@@ -77,26 +78,33 @@ const PreviewView = (props) => {
     }
     else
     {
+      let curr = props.photolist[currentSnap].nLikes;
+      curr++;
+      if (curr == 2 ) 
+      { 
+        props.matched(currentSnap)
+      }
       var newPhoto = currentSnap +1;
       setCurrentSnap(newPhoto);
     }
   }
 
-// Update the source of the image based on the current photo index
-const asource = props.photolist.length > 0
-  ? { uri: props.photolist[currentSnap]?.uri }
-  : props.source;
+  // Update the source of the image based on the current photo index
+  const asource = props.photolist.length > 0
+    ? { uri: props.photolist[currentSnap]?.uri }
+    : props.source;
 
-// Reset currentSnap and listLength if the photolist length changes
-if (listLength !== props.photolist.length) {
-  setListLength(props.photolist.length);
-  setCurrentSnap(0);
-}
-
-var previewView= 
+  // Reset currentSnap and listLength if the photolist length changes
+  if (listLength !== props.photolist.length) {
+    setListLength(props.photolist.length);
+    setCurrentSnap(0);
+  }
+ 
+  var previewView= 
                 <View style={styles.preview}>
                   <View style={styles.photoContainer}>
                     <Image style={styles.photo} source={asource}/>
+                    <Text>{props.photolist[currentSnap].key}</Text>
                   </View>
                   <View style={styles.buttonContainer}>
                     <TouchableOpacity style={[styles.button, styles.dislikeButton]} onPress={() => prev()}>
