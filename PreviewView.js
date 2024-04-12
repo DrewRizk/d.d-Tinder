@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import { ImageBackground, Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -20,7 +20,8 @@ const PreviewView = (props) => {
       flex: 1, 
       resizeMode: 'cover', 
       width: '100%',
-      height: '100%'
+      height: '100%',
+      justifyContent: 'flex-end',
     },
     preview: {
       flex: 6,
@@ -51,6 +52,22 @@ const PreviewView = (props) => {
     likeButton: {
       backgroundColor: 'green',
     },
+
+    name: {
+      fontSize: 30,
+      color: 'white',
+      fontWeight: 'bold',
+    },
+
+    bio: {
+      fontSize: 18,
+      color: 'white',
+      lineHeight:24,
+    },
+     
+    info: {
+      padding: 10,
+    }
   });
 
 
@@ -70,6 +87,8 @@ const PreviewView = (props) => {
   }
 
   // Similar to class resources example, just increments current photo index (if possible)
+  let curr = props.photolist[currentSnap];
+
   function next() {
     var len = props.photolist.length-1;
     if (len == currentSnap)
@@ -101,20 +120,24 @@ const PreviewView = (props) => {
   }
  
   var previewView= 
-                <View style={styles.preview}>
-                  <View style={styles.photoContainer}>
-                    <Image style={styles.photo} source={asource}/>
-                    <Text>{props.photolist[currentSnap].key}</Text>
-                  </View>
-                  <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={[styles.button, styles.dislikeButton]} onPress={() => prev()}>
-                      <Icon name="thumbs-down" size={30} color="white" />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles.button, styles.likeButton]} onPress={() => next()}>
-                      <Icon name="thumbs-up" size={30} color="white" />
-                    </TouchableOpacity>
-                  </View>
-                </View>
+    <View style={styles.preview}>
+      <View style={styles.photoContainer}>
+        <ImageBackground style={styles.photo} source={asource}>
+          <View style={styles.info}>
+            <Text style={styles.name}>{curr.key}</Text> 
+            <Text style={styles.bio}>{curr.bio}</Text> 
+          </View>
+        </ImageBackground>
+      </View>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={[styles.button, styles.dislikeButton]} onPress={() => prev()}>
+          <Icon name="thumbs-down" size={30} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, styles.likeButton]} onPress={() => next()}>
+          <Icon name="thumbs-up" size={30} color="white" />
+        </TouchableOpacity>
+      </View>
+    </View>
 
    return (previewView);
 };

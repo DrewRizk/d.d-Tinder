@@ -47,12 +47,12 @@ const styles = StyleSheet.create({
 const TinderApp = () => {
 
   var initialPhotoList = [
-    {key: "Mr. Froggy", uri:"https://i.pinimg.com/originals/0f/19/a4/0f19a41875f8162fad5f658dc427a47d.png", nLikes: 0},
-    {key: "Hooded Sword Girl", uri:"https://i.pinimg.com/originals/72/72/11/727211b148f69c5723190ded58755ce0.png", nLikes: 1},
-    {key: "Mrs. Puff", uri:"https://i.pinimg.com/originals/72/8a/c4/728ac41f011836125b37157d3e582616.png", nLikes: 1},
-    {key: "Ruma-dum-dum", uri:"https://i.pinimg.com/originals/24/e6/8c/24e68cefced1031c34df80f232a10601.png", nLikes: 0},
-    {key: "Morning Vibes", uri:"https://i.pinimg.com/originals/00/28/5d/00285dd455af6037dfd4aa9006bba242.png", nLikes: 0},
-    {key: "Elf Boy", uri:"https://i.pinimg.com/originals/88/3e/92/883e923bffdc6cc9b4f94a1e7c2a1fd6.png", nLikes: 1}
+    {key: "Mr. Froggy", uri:"https://i.pinimg.com/originals/0f/19/a4/0f19a41875f8162fad5f658dc427a47d.png", nLikes: 0, bio:"frogging about"},
+    {key: "Hooded Sword Girl", uri:"https://i.pinimg.com/originals/72/72/11/727211b148f69c5723190ded58755ce0.png", nLikes: 0, bio:"sword"},
+    {key: "Mrs. Puff", uri:"https://i.pinimg.com/originals/72/8a/c4/728ac41f011836125b37157d3e582616.png", nLikes: 0, bio:"spongebob reference"},
+    {key: "Ruma-dum-dum", uri:"https://i.pinimg.com/originals/24/e6/8c/24e68cefced1031c34df80f232a10601.png", nLikes: 0, bio:"big drum"},
+    {key: "Morning Vibes", uri:"https://i.pinimg.com/originals/00/28/5d/00285dd455af6037dfd4aa9006bba242.png", nLikes: 0, bio:"vibing"},
+    {key: "Elf Boy", uri:"https://i.pinimg.com/originals/88/3e/92/883e923bffdc6cc9b4f94a1e7c2a1fd6.png", nLikes: 1, bio:"elf man"}
   ];
 
 
