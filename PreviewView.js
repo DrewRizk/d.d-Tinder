@@ -12,7 +12,7 @@ const PreviewView = (props) => {
       maxWidth: '100%', 
       overflow: 'hidden', 
       borderWidth: 2,
-      marginTop: 25,
+      marginTop: 80,
       marginRight: 20,
       borderRadius: 15, 
     },

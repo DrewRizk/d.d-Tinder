@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Image, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import { Camera } from 'expo-camera';
 import { PreviewView } from './PreviewView';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import * as Sharing from 'expo-sharing';
 
 const styles = StyleSheet.create({
@@ -12,13 +13,16 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   buttonContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      padding: 20,
-      marginTop: 20,
-      justifyContent: 'top',
-      margin: 'auto',
-  },
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 20,
+    justifyContent: 'space-between',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0, 
+    zIndex: 1,
+  },  
   input: {
     height: 40,
     margin: 15,
@@ -38,13 +42,55 @@ const styles = StyleSheet.create({
     flex: 1, 
     resizeMode: 'cover', 
     width: '100%',
-    height: '100%'
-  }
+    height: '100%',
+  },
+  profileButton: {
+    backgroundColor: 'pink',
+
+  },
+  chatButton: {
+    backgroundColor: 'pink',
+    right: 0,
+    
+  },
+  messageContainer: {
+    flex: 1,
+    backgroundColor: 'pink',
+  },
+  backButton: {
+    top: 20,
+    left: 20,
+    zIndex: 2,
+    marginTop: 30,
+    marginBottom: 5,
+  },
+  chatContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 50, 
+  },
+  chatBox: {
+    backgroundColor: 'white',
+    padding: 10,
+    marginVertical: 5,
+    marginLeft: 20, 
+    marginRight: 20,
+    borderRadius: 10,
+    marginTop: 35,
+    borderWidth: 1,
+    borderColor: 'gray',
+  },
+  chatText: {
+    fontSize: 16,
+  },
 });
+
 
 
 //This is the main function we will run to render the UI. At the end of it, we can see that we render the Camera, toolbar, and then the photo list view.
 const TinderApp = () => {
+
+
 
   var initialPhotoList = [
     {key: "Mr. Froggy", uri:"https://i.pinimg.com/originals/0f/19/a4/0f19a41875f8162fad5f658dc427a47d.png", nLikes: 0, bio:"frogging about"},
@@ -60,6 +106,8 @@ const TinderApp = () => {
   const [aPhotoUri, setPhotoUri] = useState(null);
   const [photolist, setPhotoList] = useState(initialPhotoList);
   const [matched, setMatched] = useState(-1);
+  const [messageView, setMessageView] = useState(false);
+
   useEffect(() => {
 
     // Determines if an image should be previewed upon render
@@ -71,9 +119,27 @@ const TinderApp = () => {
      
   }, [photolist]); // Re-render upon changes to photoList, there could exist a more efficient alternative
 
-  TinderView = <View style={styles.container}>
-    <PreviewView photolist={photolist} source={{uri: aPhotoUri}} matched={setMatched} />
-  </View>
+
+  
+  const chatButtonNavigator = () => {
+    setMessageView(!messageView);
+   
+  };
+
+  TinderView = 
+    <>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={[styles.button, styles.profileButton]}>
+          <Icon name="user" size={30} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, styles.chatButton]} onPress={chatButtonNavigator}>
+          <Icon name="comment-o" size={30} color="white" />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.container}>
+        <PreviewView photolist={photolist} source={{ uri: aPhotoUri }} matched={setMatched} />
+      </View>
+    </>
 
   if (matched != -1 ) {
     console.log("matched="+matched);
@@ -84,6 +150,32 @@ const TinderApp = () => {
         <Text>Yay you matched!</Text>
       </>
     )
+  }else if (messageView){
+    return (
+      <View style={styles.messageContainer}>
+          <TouchableOpacity style={styles.backButton} onPress={chatButtonNavigator}>
+        <Icon name="arrow-left" size={30} color="white" />
+      </TouchableOpacity>
+        <View style={styles.chatBox}>
+          <Text style={styles.chatText}>This is a chat message</Text>
+        </View>
+        <View style={styles.chatBox}>
+          <Text style={styles.chatText}>Another chat message here</Text>
+        </View>
+        <View style={styles.chatBox}>
+          <Text style={styles.chatText}>Another chat message here</Text>
+        </View>
+        <View style={styles.chatBox}>
+          <Text style={styles.chatText}>Another chat message here</Text>
+        </View>
+        <View style={styles.chatBox}>
+          <Text style={styles.chatText}>Another chat message here</Text>
+        </View>
+          <View style={styles.chatBox}>
+          <Text style={styles.chatText}>Another chat message here</Text>
+        </View>
+      </View>
+    );
   }
   else {
     return (TinderView)  
