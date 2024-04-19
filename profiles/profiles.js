@@ -9,7 +9,7 @@ export default [
     name: "Hooded Sword Girl", 
     uri:"https://i.pinimg.com/originals/72/72/11/727211b148f69c5723190ded58755ce0.png",
     bio:"sword",
-    nLikes: 0, 
+    nLikes: 1, 
   },
   {
     name: "Mrs. Puff", 

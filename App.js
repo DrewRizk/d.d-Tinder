@@ -83,6 +83,27 @@ const styles = StyleSheet.create({
   chatText: {
     fontSize: 16,
   },
+  imageContainer: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    overflow: 'hidden',
+    marginBottom: 20,
+    borderWidth: 2,
+    borderColor: 'white', // Add a white border around the circle
+    marginTop: '70%',
+    marginLeft: 85,
+  },
+  characterImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  matchMessage: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 });
 
 
@@ -100,6 +121,7 @@ const TinderApp = () => {
   const [photolist, setPhotoList] = useState(initialPhotoList);
   const [matched, setMatched] = useState(-1);
   const [messageView, setMessageView] = useState(false);
+  const [matchView, setMatchView] = useState(false);
 
   useEffect(() => {
 
@@ -119,6 +141,11 @@ const TinderApp = () => {
    
   };
 
+  const matchNavigator = () => {
+    setMatchView(!matchView);
+   
+  };
+
   TinderView = 
     <>
       <View style={styles.buttonContainer}>
@@ -130,25 +157,37 @@ const TinderApp = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.container}>
-        <PreviewView photolist={photolist} source={{ uri: aPhotoUri }} matched={setMatched} />
+        <PreviewView photolist={photolist} source={{ uri: aPhotoUri }} matched={setMatched} matchView={setMatchView} />
       </View>
     </>
 
-  if (matched != -1 ) {
+  if (matched != -1 && matchView) {
     console.log("matched="+matched);
     console.log("uri="+photolist[matched]?.uri)
     return(
-      <>
-        <Image style={styles.photo} source={{uri: photolist[matched]?.uri}} />
-        <Text>Yay you matched!</Text>
-      </>
+      // <>
+      //   <Image style={styles.photo} source={{uri: photolist[matched]?.uri}} />
+      //   <Text>Yay you matched!</Text>
+      // </>
+      <View style={styles.container}>
+        <TouchableOpacity style={styles.backButton} onPress={matchNavigator}>
+          <Icon name="arrow-left" size={30} color="white" />
+        </TouchableOpacity>
+      {/* Character Image */}
+      <View style={styles.imageContainer}>
+        <Image source={{ uri: photolist[matched]?.uri }} style={styles.characterImage} />
+      </View>
+
+      {/* Match Message */}
+      <Text style={styles.matchMessage}>Congratulations! You've matched with {photolist[matched]?.name}!</Text>
+    </View>
     )
   }else if (messageView){
     return (
       <View style={styles.messageContainer}>
-          <TouchableOpacity style={styles.backButton} onPress={chatButtonNavigator}>
-        <Icon name="arrow-left" size={30} color="white" />
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.backButton} onPress={chatButtonNavigator}>
+          <Icon name="arrow-left" size={30} color="white" />
+        </TouchableOpacity>
         <View style={styles.chatBox}>
           <Text style={styles.chatText}>This is a chat message</Text>
         </View>

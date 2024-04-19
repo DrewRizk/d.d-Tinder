@@ -102,6 +102,7 @@ const PreviewView = (props) => {
       if (curr == 2 ) 
       { 
         props.matched(currentSnap)
+        props.matchView(true);
       }
       var newPhoto = currentSnap +1;
       setCurrentSnap(newPhoto);
