@@ -86,25 +86,26 @@ const PreviewView = (props) => {
     }
   }
 
+  // Function to generate a random number between min and max (inclusive)
+  function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  } 
+
   // Similar to class resources example, just increments current photo index (if possible)
   let curr = props.photolist[currentSnap];
 
   function next() {
-    var len = props.photolist.length-1;
-    if (len == currentSnap)
-    {
+    var len = props.photolist.length - 1;
+    if (len == currentSnap) {
       return; // Can't go past end of list
-    }
-    else
-    {
-      let curr = props.photolist[currentSnap].nLikes;
-      curr++;
-      if (curr == 2 ) 
-      { 
-        props.matched(currentSnap)
+    } else {
+      let randomNumber = getRandomNumber(1, 5);
+      console.log(randomNumber)
+      if (randomNumber === 3) {
+        props.matched(currentSnap);
         props.matchView(true);
       }
-      var newPhoto = currentSnap +1;
+      var newPhoto = currentSnap + 1;
       setCurrentSnap(newPhoto);
     }
   }
