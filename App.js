@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Image, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { Image, TouchableOpacity, FlatList, StyleSheet, Text, View } from 'react-native';
 import { Camera } from 'expo-camera';
 import { PreviewView } from './PreviewView';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     marginLeft: 20, 
     marginRight: 20,
     borderRadius: 10,
-    marginTop: 35,
+    marginTop: 5,
     borderWidth: 1,
     borderColor: 'gray',
   },
@@ -104,6 +104,21 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  DMHeaders: {
+    flex: 1,
+    justifyContent:'center',
+    backgroundColor: 'pink',
+  },
+  chatName: {
+    font: 20,
+    marginLeft:25,
+    marginTop:10
+  },
+  DMHeadersText: {
+    height: "10%",
+    padding: 20,
+    fontWeight: "bold",
+  },
 });
 
 
@@ -112,9 +127,7 @@ const styles = StyleSheet.create({
 const TinderApp = () => {
 
 
-
   var initialPhotoList = profiles;
-
 
   //useState variables and functions
   const [aPhotoUri, setPhotoUri] = useState(null);
@@ -134,16 +147,39 @@ const TinderApp = () => {
      
   }, [photolist]); // Re-render upon changes to photoList, there could exist a more efficient alternative
 
-
+  let messageList = [
+    {message: "a message"},
+    {message: "a message"},
+    {message: "a message"},
+    {message: "a message"},
+    {message: "a message"},
+    {message: "a message"},
+    {message: "a message"},
+    {message: "a message"},
+    {message: "a message"}
+  ];
   
   const chatButtonNavigator = () => {
     setMessageView(!messageView);
-   
   };
 
   const matchNavigator = () => {
     setMatchView(!matchView);
-   
+  };
+
+  const renderItem = ({ item }) => {
+    return(
+      <>
+        <View style={styles.chatItem}>
+          <Text style={styles.chatName}>name</Text>
+          <View style={styles.chatBox}>
+            <Text style={styles.chatText}>
+              item.message   
+            </Text>   
+          </View> 
+        </View>
+      </>
+    )
   };
 
   TinderView = 
@@ -184,6 +220,19 @@ const TinderApp = () => {
     )
   }else if (messageView){
     return (
+      <>
+      <View style={styles.DMHeaders}>
+          <TouchableOpacity style={styles.backButton} onPress={chatButtonNavigator}>
+            <Icon name="arrow-left" size={30} color="white" />
+          </TouchableOpacity>
+        <Text style={styles.DMHeadersText}>User's Name</Text>
+        <Text style={styles.DMHeadersText}>Messages</Text>
+        <FlatList style={styles.messageContainer}
+          data={messageList}
+          renderItem={renderItem}
+        />
+      </View>
+      {/*
       <View style={styles.messageContainer}>
         <TouchableOpacity style={styles.backButton} onPress={chatButtonNavigator}>
           <Icon name="arrow-left" size={30} color="white" />
@@ -206,7 +255,8 @@ const TinderApp = () => {
           <View style={styles.chatBox}>
           <Text style={styles.chatText}>Another chat message here</Text>
         </View>
-      </View>
+    </View>*/}
+    </>
     );
   }
   else {

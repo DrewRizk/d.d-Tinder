@@ -126,7 +126,7 @@ const PreviewView = (props) => {
       <View style={styles.photoContainer}>
         <ImageBackground style={styles.photo} source={asource}>
           <View style={styles.info}>
-            <Text style={styles.name}>{curr.key}</Text> 
+            <Text style={styles.name}>{curr.name}</Text> 
             <Text style={styles.bio}>{curr.bio}</Text> 
           </View>
         </ImageBackground>
