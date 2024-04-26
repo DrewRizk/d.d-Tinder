@@ -75,13 +75,12 @@ const PreviewView = (props) => {
   const [listLength, setListLength] = useState(0);
 
   // Similar to class resources example, just decrements current photo index (if possible)
-  function prev() {
-    if (currentSnap == 0)
-    {
-      return; // No photos to operate on
-    }
-    else{
-      var newPhoto = currentSnap - 1;
+  function dislike() {
+    var len = props.photolist.length - 1;
+    if (len == currentSnap) {
+      return; // Can't go past end of list
+    } else {
+      var newPhoto = currentSnap + 1;
       setCurrentSnap(newPhoto);
     }
   }
@@ -94,7 +93,7 @@ const PreviewView = (props) => {
   // Similar to class resources example, just increments current photo index (if possible)
   let curr = props.photolist[currentSnap];
 
-  function next() {
+  function like() {
     var len = props.photolist.length - 1;
     if (len == currentSnap) {
       return; // Can't go past end of list
@@ -132,10 +131,10 @@ const PreviewView = (props) => {
         </ImageBackground>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={[styles.button, styles.dislikeButton]} onPress={() => prev()}>
+        <TouchableOpacity style={[styles.button, styles.dislikeButton]} onPress={() => dislike()}>
           <Icon name="thumbs-down" size={30} color="white" />
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.likeButton]} onPress={() => next()}>
+        <TouchableOpacity style={[styles.button, styles.likeButton]} onPress={() => like()}>
           <Icon name="thumbs-up" size={30} color="white" />
         </TouchableOpacity>
       </View>

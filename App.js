@@ -232,30 +232,7 @@ const TinderApp = () => {
           renderItem={renderItem}
         />
       </View>
-      {/*
-      <View style={styles.messageContainer}>
-        <TouchableOpacity style={styles.backButton} onPress={chatButtonNavigator}>
-          <Icon name="arrow-left" size={30} color="white" />
-        </TouchableOpacity>
-        <View style={styles.chatBox}>
-          <Text style={styles.chatText}>This is a chat message</Text>
-        </View>
-        <View style={styles.chatBox}>
-          <Text style={styles.chatText}>Another chat message here</Text>
-        </View>
-        <View style={styles.chatBox}>
-          <Text style={styles.chatText}>Another chat message here</Text>
-        </View>
-        <View style={styles.chatBox}>
-          <Text style={styles.chatText}>Another chat message here</Text>
-        </View>
-        <View style={styles.chatBox}>
-          <Text style={styles.chatText}>Another chat message here</Text>
-        </View>
-          <View style={styles.chatBox}>
-          <Text style={styles.chatText}>Another chat message here</Text>
-        </View>
-    </View>*/}
+      {}
     </>
     );
   }
