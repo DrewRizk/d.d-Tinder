@@ -5,6 +5,7 @@ import { PreviewView } from './PreviewView';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as Sharing from 'expo-sharing';
 import profiles from './profiles/profiles';
+import personal from './profiles/personal';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -109,8 +110,11 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     backgroundColor: 'pink',
   },
+  profileScreen: {
+    backgroundColor: 'pink',
+    height: '100%'
+  },
   chatName: {
-    font: 20,
     marginLeft:25,
     marginTop:10
   },
@@ -128,6 +132,7 @@ const TinderApp = () => {
 
 
   var initialPhotoList = profiles;
+  var personalPic = personal;
 
   //useState variables and functions
   const [aPhotoUri, setPhotoUri] = useState(null);
@@ -135,6 +140,8 @@ const TinderApp = () => {
   const [matched, setMatched] = useState(-1);
   const [messageView, setMessageView] = useState(false);
   const [matchView, setMatchView] = useState(false);
+  const [profileView, setProfileView] = useState(false);
+
 
   useEffect(() => {
 
@@ -167,6 +174,12 @@ const TinderApp = () => {
     setMatchView(!matchView);
   };
 
+  const profileNavigator = () => {
+    setProfileView(!profileView);
+    console.log(profileView);
+  };
+
+
   const renderItem = ({ item }) => {
     return(
       <>
@@ -185,7 +198,7 @@ const TinderApp = () => {
   TinderView = 
     <>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={[styles.button, styles.profileButton]}>
+        <TouchableOpacity style={[styles.button, styles.profileButton]} onPress={profileNavigator}>
           <Icon name="user" size={30} color="white" />
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.chatButton]} onPress={chatButtonNavigator}>
@@ -231,6 +244,23 @@ const TinderApp = () => {
           data={messageList}
           renderItem={renderItem}
         />
+      </View>
+      {}
+    </>
+    );
+  }else if (profileView){
+    return (
+      <>
+      <View style={styles.profileScreen}>
+          <TouchableOpacity style={styles.backButton} onPress={profileNavigator}>
+            <Icon name="arrow-left" size={30} color="white" />
+          </TouchableOpacity>
+          <Text style={styles.matchMessage}> Welcome to your profile page!</Text>
+          <View style={styles.imageContainer}>
+            <Image source={{ uri: personal[0]?.uri }} style={styles.characterImage} />
+          </View>
+          <Text style={styles.matchMessage}> Name: {personal[0]?.name}</Text>
+          <Text style={styles.matchMessage}> Bio: {personal[0]?.bio}</Text>
       </View>
       {}
     </>
