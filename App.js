@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import * as Sharing from 'expo-sharing';
 import profiles from './profiles/profiles';
 import personal from './profiles/personal';
+import { loadList, saveList } from './remoteAccess';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -133,7 +134,7 @@ const TinderApp = () => {
 
   var initialPhotoList = profiles;
   var personalPic = personal;
-
+  
   //useState variables and functions
   const [aPhotoUri, setPhotoUri] = useState(null);
   const [photolist, setPhotoList] = useState(initialPhotoList);
@@ -153,6 +154,10 @@ const TinderApp = () => {
     }
      
   }, [photolist]); // Re-render upon changes to photoList, there could exist a more efficient alternative
+
+  useEffect(() => {
+    loadList(photolist, setPhotoList);
+  }, []);
 
   let messageList = [
     {message: "a message"},
