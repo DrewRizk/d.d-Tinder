@@ -160,15 +160,15 @@ const TinderApp = () => {
   }, []);
 
   let messageList = [
-    {message: "a message"},
-    {message: "a message"},
-    {message: "a message"},
-    {message: "a message"},
-    {message: "a message"},
-    {message: "a message"},
-    {message: "a message"},
-    {message: "a message"},
-    {message: "a message"}
+    {name: "Dragon", message: "U up?"},
+    {name: "Elf", message: "Wyd??"},
+    {name: "Monster", message: "Yoo u up?"},
+    {name: "Sorcerer", message: "Im bored, u up?"},
+    {name: "Wicked Elf", message: "Hey wyd"},
+    {name: "Ogre", message: "Im sorryyyyy"},
+    {name: "Troll", message: "Dudeee didn't mean it like that"},
+    {name: "Fairy", message: "Whatever "},
+    {name: "Human", message: "Kick rocks"}
   ];
   
   const chatButtonNavigator = () => {
@@ -189,10 +189,10 @@ const TinderApp = () => {
     return(
       <>
         <View style={styles.chatItem}>
-          <Text style={styles.chatName}>name</Text>
+          <Text style={styles.chatName}>{item.name}</Text>
           <View style={styles.chatBox}>
             <Text style={styles.chatText}>
-              item.message   
+              {item.message}   
             </Text>   
           </View> 
         </View>
@@ -219,10 +219,7 @@ const TinderApp = () => {
     console.log("matched="+matched);
     console.log("uri="+photolist[matched]?.uri)
     return(
-      // <>
-      //   <Image style={styles.photo} source={{uri: photolist[matched]?.uri}} />
-      //   <Text>Yay you matched!</Text>
-      // </>
+
       <View style={styles.container}>
         <TouchableOpacity style={styles.backButton} onPress={matchNavigator}>
           <Icon name="arrow-left" size={30} color="white" />
